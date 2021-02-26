@@ -74,7 +74,7 @@ public class WowheadTest {
 	WebDriverWait wait  = new WebDriverWait (driver,20);
 	
 	
-	
+	Thread.sleep(5000);
 	WebElement acceptCookies = driver.findElement(By.xpath("//*[@id=\"onetrust-accept-btn-handler\"]"));
 	acceptCookies.click();
 	
