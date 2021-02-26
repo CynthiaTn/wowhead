@@ -13,10 +13,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+
 import org.openqa.selenium.JavascriptExecutor;
 
 
@@ -24,14 +29,37 @@ public class WowheadTest {
 	
 	WebDriver driver;
 	static Logger logger = LoggerFactory.getLogger(WowheadTest.class);
+	
+	private String BROWSER =System.getProperty("browser");
+	
+
 
 	@Before
 
 	public void setup() {
-		System.setProperty("webdriver.chrome.driver", "src/main/resources/driver/chromedriver2.exe");
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
+		
+		 
+		if (BROWSER.equalsIgnoreCase(("chrome"))) {
+			System.setProperty("webdriver.chrome.driver", "src/main/resources/driver/chromedriver2.exe");
+			driver = new ChromeDriver();
+		}
+		else if (BROWSER.equalsIgnoreCase(("firefox"))) {
+			System.setProperty("webdriver.gecko.driver", "src/main/resources/driver/geckodriver.exe");
+			driver =  new FirefoxDriver();
+		}else if (BROWSER.equalsIgnoreCase(("edge"))) {
+			System.setProperty("webdriver.edge.driver", "src/main/resources/driver/msedgedriver.exe");
+			driver =  new EdgeDriver();
+		}else if (BROWSER.equalsIgnoreCase(("explorer"))) {
+			System.setProperty("webdriver.ie.driver", "src/main/resources/driver/IEDriverServer.exe");
+			driver =  new InternetExplorerDriver();
+		}else {
+			
+			logger.warn("This web browser doesn't exist");
+		}
+		
+		driver.manage().window().maximize()	;
 	
+
 	}
 
 	@After
